@@ -1,25 +1,26 @@
 {
   "site": {
     "title": "Nik Rybak Games",
-    "tagline_en": "Small offline puzzle games.",
-    "tagline_ru": "Небольшие офлайн-головоломки.",
     "developer": "Nikita Rybak",
+    "year": 2026,
     "email": "rybak.nekyadnex.ru@gmail.com"
   },
   "ad_networks": {
     "admob": {
       "name": "Google AdMob",
-      "company": "Google LLC",
+      "company": "Google",
       "privacy": "https://policies.google.com/privacy",
-      "ads": "https://policies.google.com/technologies/partner-sites"
+      "partner": "https://policies.google.com/technologies/partner-sites"
     }
   },
   "games": [
     {
       "key": "nonoku",
       "name": "Nonoku",
-      "tagline_en": "Nonograms and sudoku, offline.",
-      "tagline_ru": "Японские кроссворды и судоку без интернета.",
+      "tagline": {
+        "en": "Nonograms and sudoku, offline.",
+        "ru": "Японские кроссворды и судоку без интернета."
+      },
       "effective": "2026-10-08",
       "stores": ["Google Play", "Huawei AppGallery"],
       "ads": {"Google Play": "admob"},
