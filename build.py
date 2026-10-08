@@ -1,6 +1,7 @@
-"""Builds the static site from games.json: a home page and one privacy page per game, per language.
+"""Builds the static site from games.json: a home page and, per game, a game page, a privacy policy and terms of use,
+in every language.
 
-URLs: English at /, /<game>/privacy/ ; other languages at /<lang>/, /<lang>/<game>/privacy/.
+URLs: English at /, /<game>/, /<game>/privacy/, /<game>/terms/ ; other languages under /<lang>/.
 Add a game: append it to games.json, run `python build.py`, then `./publish.ps1 "message"`.
 Add a language: add a block to TEXT (same keys) - every page gets it and the header select lists it.
 Typography: straight double quotes "" and the plain hyphen-minus only (checked on build).
@@ -43,6 +44,30 @@ TEXT = {
         "security": "The ad and store SDKs send data encrypted (TLS).",
         "changes_h": "Changes",
         "changes": "When something changes, we update this page and its effective date.",
+        "terms_link": "Terms of use",
+        "terms_title": "{name}: terms of use",
+        "terms_lead": "By installing or playing {name} you accept these terms. They are short on purpose.",
+        "t_license_h": "Your license",
+        "t_license": "We give you a personal, non-exclusive, non-transferable license to install and play {name} on devices you own or control. Do not copy, resell, reverse engineer or redistribute the app or its content, except where the law allows it.",
+        "t_buy_h": "Purchases and subscriptions",
+        "t_buy": "Items and subscriptions are sold and billed by {stores} under their own terms, at the price shown before you pay. A subscription renews automatically each period until you cancel it in the store's subscription settings; cancelling stops the next renewal, and the benefit lasts until the end of the paid period. Refunds follow the store's refund policy.",
+        "t_items_h": "Virtual items",
+        "t_items": "Hints, picture albums, themes, backgrounds and other in-game items have no cash value, cannot be exchanged for money and are not transferable. Items you buy are restored with the store's restore option on the same store account.",
+        "t_ads_h": "Advertising",
+        "t_ads": "The free version shows ads. A rewarded video is always your choice and gives the reward shown on the button.",
+        "t_use_h": "Fair play",
+        "t_use": "Do not cheat the reward or purchase systems, tamper with the app, or use it to break the law. We may withhold rewards obtained this way.",
+        "t_warranty_h": "No warranty",
+        "t_warranty": "The app is provided as is. We work to keep it free of bugs and data loss, but we cannot promise it will always be available or error-free. Progress lives on your device: back it up with Android's backup if you want to keep it across devices.",
+        "t_liability_h": "Liability",
+        "t_liability": "To the extent the law allows, we are not liable for indirect or consequential damages, and our total liability is limited to the amount you paid for the app in the twelve months before the claim. Nothing here limits rights you have as a consumer that cannot be waived.",
+        "t_changes_h": "Changes",
+        "t_changes": "We may update these terms; the new version applies from its effective date. If you keep playing, you accept it.",
+        "t_contact_h": "Contact",
+        "t_contact": "Questions and support: <a href=\"mailto:{email}\">{email}</a>.",
+        "play_h": "What is inside",
+        "stores_h": "Where to get it",
+        "soon": "Coming soon to {stores}.",
     },
     "ru": {
         "label": "Русский",
@@ -70,6 +95,30 @@ TEXT = {
         "security": "Рекламный SDK и SDK магазина передают данные в зашифрованном виде (TLS).",
         "changes_h": "Изменения",
         "changes": "При изменениях мы обновляем эту страницу и дату вступления в силу.",
+        "terms_link": "Условия использования",
+        "terms_title": "{name}: условия использования",
+        "terms_lead": "Устанавливая {name} или играя в неё, вы принимаете эти условия. Они короткие специально.",
+        "t_license_h": "Лицензия",
+        "t_license": "Мы даём вам личную, неисключительную и непередаваемую лицензию устанавливать {name} и играть в неё на своих устройствах. Не копируйте, не перепродавайте, не декомпилируйте и не распространяйте приложение и его содержимое, кроме случаев, разрешённых законом.",
+        "t_buy_h": "Покупки и подписки",
+        "t_buy": "Предметы и подписки продают и оплачивают {stores} по своим правилам и по цене, показанной до оплаты. Подписка продлевается автоматически каждый период, пока вы не отмените её в разделе подписок магазина; отмена останавливает следующее продление, а оплаченный период действует до конца. Возвраты - по правилам магазина.",
+        "t_items_h": "Виртуальные предметы",
+        "t_items": "Подсказки, альбомы картинок, темы, фоны и другие игровые предметы не имеют денежной стоимости, не обмениваются на деньги и не передаются другим. Купленное восстанавливается через восстановление покупок в том же аккаунте магазина.",
+        "t_ads_h": "Реклама",
+        "t_ads": "Бесплатная версия показывает рекламу. Ролик за награду - всегда ваш выбор, он даёт награду, указанную на кнопке.",
+        "t_use_h": "Честная игра",
+        "t_use": "Не обманывайте систему наград и покупок, не вмешивайтесь в работу приложения и не используйте его для нарушения закона. Награды, полученные так, мы можем не засчитать.",
+        "t_warranty_h": "Без гарантий",
+        "t_warranty": "Приложение предоставляется как есть. Мы следим, чтобы в нём не было ошибок и потерь данных, но не можем обещать, что оно всегда будет доступно и безошибочно. Прогресс хранится на устройстве: чтобы перенести его на другое, включите резервное копирование Android.",
+        "t_liability_h": "Ответственность",
+        "t_liability": "В пределах, разрешённых законом, мы не отвечаем за косвенный ущерб, а наша общая ответственность ограничена суммой, которую вы заплатили за приложение за двенадцать месяцев до претензии. Ничто здесь не ограничивает права потребителя, от которых нельзя отказаться.",
+        "t_changes_h": "Изменения",
+        "t_changes": "Мы можем обновлять эти условия; новая редакция действует с указанной даты. Продолжая играть, вы её принимаете.",
+        "t_contact_h": "Контакты",
+        "t_contact": "Вопросы и поддержка: <a href=\"mailto:{email}\">{email}</a>.",
+        "play_h": "Что внутри",
+        "stores_h": "Где скачать",
+        "soon": "Скоро в {stores}.",
     },
 }
 DEFAULT = "en"
@@ -131,12 +180,49 @@ def privacy(game, cfg, lang):
             f'<p class="lead">{t["summary"]}</p>\n' + "".join(parts))
 
 
+def terms(game, cfg, lang):
+    t = TEXT[lang]
+    name = esc(game["name"])
+    stores = t["and"].join(map(esc, game["stores"]))
+    email = cfg["site"]["email"]
+    parts = [section(t["t_license_h"], t["t_license"].format(name=name))]
+    if game.get("purchases"):
+        parts += [section(t["t_buy_h"], t["t_buy"].format(stores=stores)), section(t["t_items_h"], t["t_items"])]
+    if game.get("ads"):
+        parts.append(section(t["t_ads_h"], t["t_ads"]))
+    parts += [section(t["t_use_h"], t["t_use"]), section(t["t_warranty_h"], t["t_warranty"]),
+              section(t["t_liability_h"], t["t_liability"]), section(t["t_changes_h"], t["t_changes"]),
+              section(t["t_contact_h"], t["t_contact"].format(email=email))]
+    return (f'<h1>{t["terms_title"].format(name=name)}</h1>\n<p class="meta">{t["effective"].format(date=date_text(game["effective"], lang))}</p>\n'
+            f'<p class="lead">{t["terms_lead"].format(name=name)}</p>\n' + "".join(parts))
+
+
+def game_links(game, lang):
+    t = TEXT[lang]
+    return (f'<div class="links"><a href="{url(lang, game["key"] + "/privacy/")}">{t["policy"]}</a>'
+            f'<a href="{url(lang, game["key"] + "/terms/")}">{t["terms_link"]}</a></div>')
+
+
+def game_page(game, cfg, lang):
+    t = TEXT[lang]
+    stores = game.get("store_urls", {})
+    live = "".join(f'<a href="{u}">{esc(s)}</a>' for s, u in stores.items())
+    waiting = [s for s in game["stores"] if s not in stores]
+    where = (f'<div class="links">{live}</div>\n' if live else "") + (
+        f'<p class="meta">{t["soon"].format(stores=t["and"].join(map(esc, waiting)))}</p>\n' if waiting else "")
+    features = "".join(f"<li>{esc(f)}</li>" for f in game.get("features", {}).get(lang, []))
+    return (f'<div class="hero"><img src="/assets/games/{game["key"]}.png" alt="" width="96" height="96">'
+            f'<div><h1>{esc(game["name"])}</h1><p class="meta">{esc(game["tagline"][lang])}</p></div></div>\n'
+            + (f'<h2>{t["play_h"]}</h2>\n<ul class="features">{features}</ul>\n' if features else "")
+            + f'<h2>{t["stores_h"]}</h2>\n{where}' + game_links(game, lang))
+
+
 def home(cfg, lang):
     t = TEXT[lang]
     cards = "".join(
         f'<li class="game"><img src="/assets/games/{g["key"]}.png" alt="" width="64" height="64">'
-        f'<div><h3>{esc(g["name"])}</h3><p>{esc(g["tagline"][lang])}</p>'
-        f'<div class="links"><a href="{url(lang, g["key"] + "/privacy/")}">{t["policy"]}</a></div></div></li>\n'
+        f'<div><h3><a href="{url(lang, g["key"] + "/")}">{esc(g["name"])}</a></h3><p>{esc(g["tagline"][lang])}</p>'
+        f'{game_links(g, lang)}</div></li>\n'
         for g in cfg["games"])
     return f'<h1>{esc(cfg["site"]["title"])}</h1>\n<p class="meta">{t["tagline"]}</p>\n<h2>{t["games"]}</h2>\n<ul class="games">\n{cards}</ul>'
 
@@ -158,8 +244,12 @@ def main():
         base = "" if lang == DEFAULT else f"{lang}/"
         write(base or ".", page(lang, "", esc(site["title"]), home(cfg, lang), site))
         for g in cfg["games"]:
+            name = esc(g["name"])
+            write(base + f'{g["key"]}/', page(lang, f'{g["key"]}/', name, game_page(g, cfg, lang), site))
             path = f'{g["key"]}/privacy/'
-            write(base + path, page(lang, path, TEXT[lang]["title"].format(name=esc(g["name"])), privacy(g, cfg, lang), site))
+            write(base + path, page(lang, path, TEXT[lang]["title"].format(name=name), privacy(g, cfg, lang), site))
+            path = f'{g["key"]}/terms/'
+            write(base + path, page(lang, path, TEXT[lang]["terms_title"].format(name=name), terms(g, cfg, lang), site))
 
 
 if __name__ == "__main__":

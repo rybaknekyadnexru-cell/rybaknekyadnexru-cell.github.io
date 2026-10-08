@@ -22,9 +22,30 @@
         "ru": "Японские кроссворды и судоку без интернета."
       },
       "effective": "2026-10-08",
-      "stores": ["Google Play", "Huawei AppGallery"],
-      "ads": {"Google Play": "admob"},
-      "purchases": true
+      "stores": [
+        "Google Play",
+        "Huawei AppGallery"
+      ],
+      "ads": {
+        "Google Play": "admob"
+      },
+      "purchases": true,
+      "features": {
+        "en": [
+          "Nonograms up to 25x25 that bloom into colour pictures",
+          "Sudoku from easy to master, Killer and 8 grid types",
+          "Hints that teach the technique, not just the answer",
+          "Daily puzzles, a weekly challenge and 25 achievements",
+          "Plays offline, small and easy on the battery"
+        ],
+        "ru": [
+          "Японские кроссворды до 25x25, которые расцветают цветной картинкой",
+          "Судоку от лёгкого до мастера, Киллер и 8 видов сеток",
+          "Подсказки учат приёму, а не просто дают ответ",
+          "Ежедневные головоломки, задание недели и 25 достижений",
+          "Играйте без интернета: мало весит и бережёт батарею"
+        ]
+      }
     }
   ]
 }
