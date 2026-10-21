@@ -4,6 +4,9 @@ in every language.
 URLs: English at /, /<game>/, /<game>/privacy/, /<game>/terms/ ; other languages under /<lang>/.
 Add a game: append it to games.json, run `python build.py`, then `./publish.ps1 "message"`.
 Add a language: add a block to TEXT (same keys) - every page gets it and the header select lists it.
+Per-game text: a game may carry "text": {"<lang>": {"<TEXT key>": "..."}} (replaces that key for the game only) and
+"sections": ["<name>", ...] (extra privacy sections rendered from TEXT keys s_<name>_h and s_<name>, in every language,
+placed after "Data on your device"). Games without them render exactly from TEXT.
 Typography: straight double quotes "" and the plain hyphen-minus only (checked on build).
 """
 
@@ -42,6 +45,12 @@ TEXT = {
         "rights": "Uninstalling the app deletes its data from your device. We hold no personal data, so there is nothing for us to export or erase. Questions about advertising data go to the ad network, questions about purchases go to the app store.",
         "security_h": "Security",
         "security": "The ad and store SDKs send data encrypted (TLS).",
+        "s_file_h": "Progress file",
+        "s_file": "\"Save progress to file\" in Settings creates a file only when you choose it, and stores it where you choose. The file holds progress, statistics, streak and settings, never purchases or payment data. Loading a file replaces these on the phone.",
+        "s_integrity_h": "Device check (Google Play version only)",
+        "s_integrity": "To protect purchases and rewards from cheating, the app checks that the device and the app are genuine. It asks Google Play Integrity for a verdict and sends a hardware key attestation (a certificate chain that describes the security state of the device: boot state, security patch level, the package name of the app and its signing certificate) together with the Play Integrity token to our verification service, hosted on Cloudflare. No account, name, advertising ID or game data is sent. The service keeps no data and writes no request data to logs; Cloudflare processes the IP address to deliver the request. Details: <a href=\"https://policies.google.com/privacy\">Google privacy policy</a>, <a href=\"https://www.cloudflare.com/privacypolicy/\">Cloudflare privacy policy</a>. If the check cannot run (offline, no Google Play services), the game works normally.",
+        "s_play_games_h": "Google Play Games (Google Play version only)",
+        "s_play_games": "The app signs in automatically with your Play Games profile if you use one, and saves your achievements to it; Google processes this under its privacy policy. You can turn Play Games off in the Play Games app. There are no cloud saves.",
         "changes_h": "Changes",
         "changes": "When something changes, we update this page and its effective date.",
         "terms_link": "Terms of use",
@@ -93,6 +102,12 @@ TEXT = {
         "rights": "Удаление приложения удаляет его данные с устройства. Мы не храним персональных данных, поэтому выгружать или удалять у нас нечего. Вопросы о рекламных данных - к рекламной сети, о покупках - к магазину приложений.",
         "security_h": "Безопасность",
         "security": "Рекламный SDK и SDK магазина передают данные в зашифрованном виде (TLS).",
+        "s_file_h": "Файл прогресса",
+        "s_file": "\"Сохранить прогресс в файл\" в настройках создаёт файл только по вашей команде и кладёт его туда, куда вы укажете. В файле прогресс, статистика, серия и настройки, но никогда покупки и платёжные данные. Загрузка файла заменяет их на телефоне.",
+        "s_integrity_h": "Проверка устройства (только версия для Google Play)",
+        "s_integrity": "Чтобы защитить покупки и награды от накрутки, приложение проверяет, что устройство и приложение настоящие. Оно запрашивает вердикт Google Play Integrity и отправляет аппаратную аттестацию ключа (цепочку сертификатов, описывающую состояние безопасности устройства: состояние загрузки, уровень патча безопасности, имя пакета приложения и его сертификат подписи) вместе с токеном Play Integrity на наш сервис проверки, размещённый в Cloudflare. Аккаунт, имя, рекламный идентификатор и игровые данные не отправляются. Сервис ничего не хранит и не пишет данные запросов в журналы; Cloudflare обрабатывает IP-адрес, чтобы доставить запрос. Подробнее: <a href=\"https://policies.google.com/privacy\">политика конфиденциальности Google</a>, <a href=\"https://www.cloudflare.com/privacypolicy/\">политика конфиденциальности Cloudflare</a>. Если проверка не может выполниться (нет сети, нет сервисов Google Play), игра работает как обычно.",
+        "s_play_games_h": "Google Play Игры (только версия для Google Play)",
+        "s_play_games": "Приложение автоматически входит в ваш профиль Play Игр, если вы им пользуетесь, и сохраняет в него ваши достижения; Google обрабатывает их по своей политике конфиденциальности. Play Игры можно отключить в приложении Play Игры. Облачных сохранений нет.",
         "changes_h": "Изменения",
         "changes": "При изменениях мы обновляем эту страницу и дату вступления в силу.",
         "terms_link": "Условия использования",
@@ -160,13 +175,32 @@ def page(lang, path, title, body, site):
             f'</main>\n<script>{TOGGLE_JS}</script>\n</body>\n</html>\n')
 
 
+def texts(game, lang):
+    """TEXT for a language with the game's own overrides applied (unknown keys fail the build)."""
+    over = game.get("text", {}).get(lang, {})
+    unknown = sorted(set(over) - set(TEXT[lang]))
+    if unknown:
+        raise SystemExit(f'{game["key"]}: unknown text keys for {lang}: {unknown}')
+    return {**TEXT[lang], **over}
+
+
+def extra_sections(game, t):
+    """Extra privacy sections named in the game's "sections", from TEXT keys s_<name>_h and s_<name>."""
+    out = []
+    for name in game.get("sections", []):
+        if f"s_{name}" not in t or f"s_{name}_h" not in t:
+            raise SystemExit(f'{game["key"]}: section "{name}" needs TEXT keys s_{name}_h and s_{name} in every language')
+        out.append(section(t[f"s_{name}_h"], t[f"s_{name}"].format(name=esc(game["name"]))))
+    return out
+
+
 def section(title, *paragraphs):
     return f"<h2>{title}</h2>\n" + "".join(f"<p>{p}</p>\n" for p in paragraphs if p)
 
 
 def privacy(game, cfg, lang):
-    t = TEXT[lang]
-    parts = [section(t["device_h"], t["device"])]
+    t = texts(game, lang)
+    parts = [section(t["device_h"], t["device"])] + extra_sections(game, t)
     ads = [t["ads"].format(store=esc(store), network=esc(net["name"]), company=esc(net["company"]),
                            privacy=net["privacy"], partner=net["partner"])
            for store, net in ((s, cfg["ad_networks"][k]) for s, k in game.get("ads", {}).items())]
@@ -181,7 +215,7 @@ def privacy(game, cfg, lang):
 
 
 def terms(game, cfg, lang):
-    t = TEXT[lang]
+    t = texts(game, lang)
     name = esc(game["name"])
     stores = t["and"].join(map(esc, game["stores"]))
     email = cfg["site"]["email"]

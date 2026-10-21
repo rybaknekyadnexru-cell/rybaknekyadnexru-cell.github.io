@@ -11,6 +11,9 @@ Static site on GitHub Pages: https://rybaknekyadnexru-cell.github.io/
 ## Add a game
 
 1. Add an entry to `games.json` (`key`, `name`, `tagline` per language, `effective`, `stores`, `ads`, `purchases`) and its icon as `assets/games/<key>.png`.
+   Optional per-game fields (a game without them renders exactly from the shared text):
+   - `"text": {"en": {"<TEXT key>": "..."}, "ru": {...}}` replaces those `TEXT` keys (for example `summary`, `device`, `security`, `t_items`, `t_warranty`) for this game only; an unknown key fails the build.
+   - `"sections": ["file", "integrity", "play_games"]` adds extra privacy sections after "Data on your device", in the order listed. Each name needs the keys `s_<name>_h` (heading) and `s_<name>` (paragraph) in `TEXT` of every language. Available now: `file` (progress file), `integrity` (device check, Google Play), `play_games` (Google Play Games). A new section is a new pair of keys in `build.py`, reusable by every game.
 2. Run `.\publish.ps1 "feat: add <game>"` (the build fails on curly quotes, dashes and the ellipsis character).
 3. The policy URL is `https://rybaknekyadnexru-cell.github.io/<key>/privacy/`.
 

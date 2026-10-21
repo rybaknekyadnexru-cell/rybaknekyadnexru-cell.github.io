@@ -46,6 +46,60 @@
           "Играйте без интернета: мало весит и бережёт батарею"
         ]
       }
+    },
+    {
+      "key": "mahjong",
+      "name": "Mahjong Solitaire",
+      "tagline": {
+        "en": "Classic mahjong solitaire, offline.",
+        "ru": "Классический маджонг-пасьянс без интернета."
+      },
+      "effective": "2026-10-21",
+      "stores": [
+        "Google Play",
+        "Huawei AppGallery"
+      ],
+      "ads": {
+        "Google Play": "admob"
+      },
+      "purchases": true,
+      "features": {
+        "en": [
+          "A Journey of hand-made levels across regions",
+          "A daily board, quests and a season pass",
+          "15 tile sets and chunky 3D tiles",
+          "Hints, shuffle and undo with a calm pace",
+          "Plays offline in 18 languages, small and easy on the battery"
+        ],
+        "ru": [
+          "Путешествие по регионам с уровнями ручной работы",
+          "Ежедневная доска, задания и сезонный пропуск",
+          "15 наборов костей и объёмные 3D-кости",
+          "Подсказки, перемешивание и отмена в спокойном темпе",
+          "Играйте без интернета на 18 языках: мало весит и бережёт батарею"
+        ]
+      },
+      "sections": [
+        "file",
+        "integrity",
+        "play_games"
+      ],
+      "text": {
+        "en": {
+          "summary": "No account and no sign-up. Your progress and settings stay on your device. Only the ad network, the app store, Google Play Games and our device-check service receive the data they need to show ads, process purchases, save achievements and protect rewards from cheating.",
+          "device": "Game progress, statistics, streak, hints, settings and the items you own. The wallet and purchases are also kept as a copy sealed with a hardware key of the device; that copy never leaves the device and is excluded from Android backup. Android may include progress and settings in your device backup if backup is on; we never receive this data.",
+          "security": "The ad, store, Play Games and verification connections are encrypted (TLS).",
+          "t_items": "Hints, boosters, themes, tile sets, backgrounds, the season pass and other in-game items have no cash value, cannot be exchanged for money and are not transferable. Items you buy are restored with the store's restore option on the same store account.",
+          "t_warranty": "The app is provided as is. We work to keep it free of bugs and data loss, but we cannot promise it will always be available or error-free. Progress lives on your device: keep it across devices with Android backup or \"Save progress to file\" in Settings."
+        },
+        "ru": {
+          "summary": "Без аккаунта и регистрации. Прогресс и настройки хранятся только на вашем устройстве. Данные получают лишь рекламная сеть, магазин приложений, Google Play Игры и наш сервис проверки устройства - ровно то, что нужно для показа рекламы, покупок, сохранения достижений и защиты наград от накрутки.",
+          "device": "Прогресс игры, статистика, серия, подсказки, настройки и купленные предметы. Кошелёк и покупки хранятся также копией, запечатанной аппаратным ключом устройства; эта копия никогда не покидает устройство и исключена из резервной копии Android. Android может включить прогресс и настройки в резервную копию устройства, если она включена; мы эти данные не получаем.",
+          "security": "Соединения с рекламой, магазином, Play Играми и сервисом проверки зашифрованы (TLS).",
+          "t_items": "Подсказки, бустеры, темы, наборы костей, фоны, сезонный пропуск и другие игровые предметы не имеют денежной стоимости, не обмениваются на деньги и не передаются другим. Купленное восстанавливается через восстановление покупок в том же аккаунте магазина.",
+          "t_warranty": "Приложение предоставляется как есть. Мы следим, чтобы в нём не было ошибок и потерь данных, но не можем обещать, что оно всегда будет доступно и безошибочно. Прогресс хранится на устройстве: чтобы перенести его на другое, используйте резервное копирование Android или \"Сохранить прогресс в файл\" в настройках."
+        }
+      }
     }
   ]
 }
