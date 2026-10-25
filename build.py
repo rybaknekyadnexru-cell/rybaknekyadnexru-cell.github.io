@@ -5,7 +5,7 @@ URLs: English at /, /<game>/, /<game>/privacy/, /<game>/terms/ ; other languages
 Add a game: append it to games.json, run `python build.py`, then `./publish.ps1 "message"`.
 Add a language: add a block to TEXT (same keys) - every page gets it and the header select lists it.
 Per-game text: a game may carry "text": {"<lang>": {"<TEXT key>": "..."}} (replaces that key for the game only) and
-"sections": ["<name>", ...] (extra privacy sections rendered from TEXT keys s_<name>_h and s_<name>, in every language,
+"sections": ["<name>", ...] (extra privacy sections rendered from TEXT keys s_<name>_h and s_<name>, or from the game's own "text" keys of that name, in every language,
 placed after "Data on your device"). Games without them render exactly from TEXT.
 Typography: straight double quotes "" and the plain hyphen-minus only (checked on build).
 """
@@ -149,6 +149,9 @@ MONTHS_EN = "January February March April May June July August September October
 
 
 def date_text(iso, lang):
+    if iso == "TBD":  # a draft: the owner replaces it with the publication date (YYYY-MM-DD) before publishing
+        print("WARNING: effective date is TBD; set it in games.json before publishing")
+        return "[EFFECTIVE DATE - TO BE SET BY THE OWNER]" if lang == "en" else "[ДАТА ВСТУПЛЕНИЯ В СИЛУ - УКАЖЕТ ВЛАДЕЛЕЦ]"
     d = datetime.date.fromisoformat(iso)
     return f"{MONTHS_EN[d.month - 1]} {d.day}, {d.year}" if lang == "en" else d.strftime("%d.%m.%Y")
 
@@ -178,7 +181,7 @@ def page(lang, path, title, body, site):
 def texts(game, lang):
     """TEXT for a language with the game's own overrides applied (unknown keys fail the build)."""
     over = game.get("text", {}).get(lang, {})
-    unknown = sorted(set(over) - set(TEXT[lang]))
+    unknown = sorted(k for k in set(over) - set(TEXT[lang]) if not k.startswith("s_"))  # s_* = the game's own sections
     if unknown:
         raise SystemExit(f'{game["key"]}: unknown text keys for {lang}: {unknown}')
     return {**TEXT[lang], **over}
