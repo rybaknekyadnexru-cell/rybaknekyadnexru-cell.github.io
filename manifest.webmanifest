@@ -1,0 +1,35 @@
+{
+  "name": "NR Games",
+  "short_name": "NR Games",
+  "description": "NR Games is an independent studio that designs, builds and publishes games and software. Fast, private by default and made for players in 70 languages",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#fbf4e9",
+  "theme_color": "#fbf4e9",
+  "icons": [
+    {
+      "src": "/img/brand/logo-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/img/brand/logo-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/img/brand/maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "related_applications": [
+    {
+      "platform": "play",
+      "url": "https://play.google.com/store/apps/details?id=com.nonoku.app",
+      "id": "com.nonoku.app"
+    }
+  ]
+}
