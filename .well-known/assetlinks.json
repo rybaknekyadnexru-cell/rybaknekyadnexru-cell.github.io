@@ -1,0 +1,13 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.nonoku.app",
+      "sha256_cert_fingerprints": [
+        "51:E0:A2:4A:0E:56:A6:6A:85:28:A4:FE:41:E2:80:26:2B:E0:45:E5:01:BA:0F:67:62:35:7B:63:45:0D:36:58",
+        "85:20:89:2A:95:E7:68:5B:21:BC:B1:46:D6:EA:AD:87:6A:C7:3C:13:B1:88:93:81:B6:94:71:F6:07:A1:5D:57"
+      ]
+    }
+  }
+]
